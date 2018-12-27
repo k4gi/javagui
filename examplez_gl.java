@@ -27,7 +27,7 @@ public class GroupLayoutSimpleEx extends JFrame {
 
         sg.addComponent(lbl).addPreferredGap(RELATED).addComponent(field,
                 GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-                GroupLayout.PREFERRED_SIZE);
+                GroupLayout.DEFAULT_SIZE);
 
         gl.setHorizontalGroup(sg);
 
