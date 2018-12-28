@@ -7,3 +7,6 @@ https://www.tutorialspoint.com/javaexamples/java_simple_gui.htm
 
 also following this Zetcode tutorial
 http://zetcode.com/tutorials/javaswingtutorial/
+
+and theres some I/O stuff here!
+https://www.tutorialspoint.com/java/java_files_io.htm
