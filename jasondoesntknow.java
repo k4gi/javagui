@@ -14,10 +14,35 @@ public class JasonDoesntKnow extends JFrame {
 		initUI();
 	}
 	
+	private void outputToFile(String arg) throws IOException{ //i don't know how to do this so this code doesn't work
+		FileOutputStream out = null;
+		
+		try {
+			out = new FileOutputStream("output.txt");
+			int c;
+			while ((c = arg.read()) != -1) {
+				out.write(c);
+			}
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+		}
+		
+	}
+	
 	private void initUI() {
 		var field = new JTextField(20);
+		field.addActionListener(new ActionListener() { //i don't know so many things
+			//@Override
+			public void actionPerformed(ActionEvent event) {
+				outputToFile(field.getText());
+			}
+		});
+		
 		createLayout(field);
 		setTitle("Jason Doesn't Know");
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
