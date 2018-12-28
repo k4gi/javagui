@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import java.io.*;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class JasonDoesntKnow extends JFrame {
 	
@@ -14,15 +15,12 @@ public class JasonDoesntKnow extends JFrame {
 		initUI();
 	}
 	
-	private void outputToFile(String arg) throws IOException{ //i don't know how to do this so this code doesn't work
-		FileOutputStream out = null;
+	private void outputToFile(String arg){ //i don't know how to do this so this code doesn't work
+		PrintWriter out = null;
 		
 		try {
-			out = new FileOutputStream("output.txt");
-			int c;
-			while ((c = arg.read()) != -1) {
-				out.write(c);
-			}
+			out = new PrintWriter("./jasonout.txt");
+			out.println(arg);
 		} finally {
 			if (out != null) {
 				out.close();
@@ -34,7 +32,7 @@ public class JasonDoesntKnow extends JFrame {
 	private void initUI() {
 		var field = new JTextField(20);
 		field.addActionListener(new ActionListener() { //i don't know so many things
-			//@Override
+			@Override
 			public void actionPerformed(ActionEvent event) {
 				outputToFile(field.getText());
 			}
