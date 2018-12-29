@@ -15,12 +15,14 @@ public class JasonDoesntKnow extends JFrame {
 		initUI();
 	}
 	
-	private void outputToFile(String arg){ //i don't know how to do this so this code doesn't work
+	private void outputToFile(String arg) { //i don't know how to do this so this code doesn't work
 		PrintWriter out = null;
 		
 		try {
 			out = new PrintWriter("./jasonout.txt");
 			out.println(arg);
+		} catch (IOException e) {
+			
 		} finally {
 			if (out != null) {
 				out.close();
