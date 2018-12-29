@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComponent;
+import javax.swing.JButton;
 import java.awt.EventQueue;
 import java.io.*;
 import javax.swing.AbstractAction;
@@ -15,7 +16,7 @@ public class JasonDoesntKnow extends JFrame {
 		initUI();
 	}
 	
-	private void outputToFile(String arg) { //i don't know how to do this so this code doesn't work
+	private void outputToFile(String arg) {
 		PrintWriter out = null;
 		
 		try {
@@ -33,17 +34,21 @@ public class JasonDoesntKnow extends JFrame {
 	
 	private void initUI() {
 		var field = new JTextField(20);
-		field.addActionListener(new ActionListener() { //i don't know so many things
+		field.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				outputToFile(field.getText());
 			}
 		});
 		
-		createLayout(field);
+		var pressA = new JButton("A");
+		var pressB = new JButton("B");
+		var pressC = new JButton("C");
+		
+		createLayout(field, pressA, pressB, pressC);
 		setTitle("Jason Doesn't Know");
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null); //centre window
+		setDefaultCloseOperation(EXIT_ON_CLOSE); //make X button work
 	}
 	
 	private void createLayout(JComponent... arg) {
@@ -51,11 +56,21 @@ public class JasonDoesntKnow extends JFrame {
         var gl = new GroupLayout(pane);
         pane.setLayout(gl);
 		
-		gl.setHorizontalGroup(gl.createSequentialGroup()
+		gl.setHorizontalGroup(gl.createParallelGroup()
 			.addComponent(arg[0])
+			.addGroup(gl.createSequentialGroup()
+				.addComponent(arg[1])
+				.addComponent(arg[2])
+				.addComponent(arg[3])
+			)
 		);
-		gl.setVerticalGroup(gl.createParallelGroup()
+		gl.setVerticalGroup(gl.createSequentialGroup()
 			.addComponent(arg[0])
+			.addGroup(gl.createParallelGroup()
+				.addComponent(arg[1])
+				.addComponent(arg[2])
+				.addComponent(arg[3])
+			)
 		);
 		
 		pack(); //auto-size
