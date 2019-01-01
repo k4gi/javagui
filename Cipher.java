@@ -3,27 +3,30 @@ import javax.swing.JFrame;
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JSlider;
+import javax.swing.JLabel;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.ChangeEvent;
 
 public class Cipher extends JFrame {
 	public Cipher() {
 		initUI();
 	}
 	
-	private String caesarCipher(String in, boolean flip, int key) {
+	private String caesarCipher(String in, boolean flip_in, int key_in) {
 		String out = "";
 		String wheel_1 = "abcdefghijklmnopqrstuvwxyz";
 		String wheel_2 = wheel_1;
 		in = in.toLowerCase(); //removes case worries?
 		
-		if(flip) {
-			for(int i = 0; i < key; i++) {
+		if(flip_in) {
+			for(int i = 0; i < key_in; i++) {
 				wheel_2 = wheel_2.charAt(wheel_2.length() - 1) + wheel_2.substring(0, wheel_2.length() - 1);
 			}
 		} else {
-			for(int i = 0; i < key; i++) {
+			for(int i = 0; i < key_in; i++) {
 				wheel_2 = wheel_2.substring(1, wheel_2.length()) + wheel_2.charAt(0);
 			}
 		}
@@ -65,8 +68,18 @@ public class Cipher extends JFrame {
 			}
 		});
 		
+		var keydisp = new JLabel(Integer.toString(key));
 		
-		createLayout(in_field, press_this, out_field);
+		var slide = new JSlider(1,26,1);
+		slide.setMinorTickSpacing(1);
+		slide.setPaintTicks(true);
+		slide.addChangeListener((ChangeEvent e) -> {
+			key = slide.getValue();
+			keydisp.setText(Integer.toString(key));
+		});
+		
+		
+		createLayout(keydisp, slide, in_field, press_this, out_field);
 		setTitle("It's cipher tiem");
 		setLocationRelativeTo(null); //centre window
 		setDefaultCloseOperation(EXIT_ON_CLOSE); //make X button work
@@ -78,14 +91,22 @@ public class Cipher extends JFrame {
         pane.setLayout(gl);
 		
 		gl.setHorizontalGroup(gl.createParallelGroup()
-			.addComponent(arg[0])
-			.addComponent(arg[1])
+			.addGroup(gl.createSequentialGroup()
+				.addComponent(arg[0])
+				.addComponent(arg[1])
+			)
 			.addComponent(arg[2])
+			.addComponent(arg[3])
+			.addComponent(arg[4])
 		);
 		gl.setVerticalGroup(gl.createSequentialGroup()
-			.addComponent(arg[0])
-			.addComponent(arg[1])
+			.addGroup(gl.createParallelGroup()
+				.addComponent(arg[0])
+				.addComponent(arg[1])
+			)
 			.addComponent(arg[2])
+			.addComponent(arg[3])
+			.addComponent(arg[4])
 		);
 		
 		pack(); //auto-size
