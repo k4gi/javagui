@@ -12,14 +12,20 @@ public class Cipher extends JFrame {
 		initUI();
 	}
 	
-	private String caesarCipher(String in) {
-		int key = 1;
-		StringBuilder out = "";
+	private String caesarCipher(String in, boolean flip, int key) {
+		String out = "";
 		String wheel_1 = "abcdefghijklmnopqrstuvwxyz";
 		String wheel_2 = wheel_1;
+		in = in.toLowerCase(); //removes case worries?
 		
-		for(int i = 0; i < key; i++) {
-			wheel_2 = wheel_2.charAt(wheel_2.length() - 1) + wheel_2.substring(0, wheel_2.length() - 1);
+		if(flip) {
+			for(int i = 0; i < key; i++) {
+				wheel_2 = wheel_2.charAt(wheel_2.length() - 1) + wheel_2.substring(0, wheel_2.length() - 1);
+			}
+		} else {
+			for(int i = 0; i < key; i++) {
+				wheel_2 = wheel_2.substring(1, wheel_2.length()) + wheel_2.charAt(0);
+			}
 		}
 		
 		// create two Strings of each letter in sequence
@@ -34,14 +40,19 @@ public class Cipher extends JFrame {
 		
 		//ok its output time
 		for(int i = 0; i < in.length(); i++) {
-			int j = wheel_1.indexOf(in.charAt(i)); //need to ignore case here!
-			
+			int j = wheel_1.indexOf(in.charAt(i));
+			if(j != -1) {
+				out = out + wheel_2.charAt(j);
+			}
 		}
 		
 		return out;
 	}
 	
 	private void initUI() {
+		boolean flip = false;
+		int key = 1;
+		
 		var in_field = new JTextArea("Type here",5,50);
 		in_field.setLineWrap(true);
 		var out_field = new JTextArea("Read here",5,50);
@@ -50,7 +61,7 @@ public class Cipher extends JFrame {
 		var press_this = new JButton("Press to encode text!");
 		press_this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				out_field.setText( caesarCipher(in_field.getText()) );
+				out_field.setText( caesarCipher(in_field.getText(), flip, key) );
 			}
 		});
 		
