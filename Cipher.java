@@ -12,7 +12,16 @@ public class Cipher extends JFrame {
 		initUI();
 	}
 	
-	private String encodeText(String in) {
+	private String caesarCipher(String in) {
+		int key = 1;
+		String out = "";
+		// create two Strings of each letter in sequence
+		// shift one over using split() and join()
+		//for each character in input:
+		//	find the character in sequence 1
+		//  find character at same index in sequence 2
+		//  concatenate to output
+		
 		return in;
 	}
 	
@@ -25,7 +34,7 @@ public class Cipher extends JFrame {
 		var press_this = new JButton("Press to encode text!");
 		press_this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				out_field.setText( encodeText(in_field.getText()) );
+				out_field.setText( caesarCipher(in_field.getText()) );
 			}
 		});
 		
