@@ -14,15 +14,31 @@ public class Cipher extends JFrame {
 	
 	private String caesarCipher(String in) {
 		int key = 1;
-		String out = "";
+		StringBuilder out = "";
+		String wheel_1 = "abcdefghijklmnopqrstuvwxyz";
+		String wheel_2 = wheel_1;
+		
+		for(int i = 0; i < key; i++) {
+			wheel_2 = wheel_2.charAt(wheel_2.length() - 1) + wheel_2.substring(0, wheel_2.length() - 1);
+		}
+		
 		// create two Strings of each letter in sequence
-		// shift one over using split() and join()
+		// shift one over using split() and join() (???) (actually not this way)
+		// from StackOverflow... the real way to do it
+		// newStr = newStr.charAt(newStr.length() - 1) + newStr.substring(0, newStr.length() - 1);
+		// thanks to https://stackoverflow.com/a/20252287
 		//for each character in input:
 		//	find the character in sequence 1
 		//  find character at same index in sequence 2
-		//  concatenate to output
+		//  append to output
 		
-		return in;
+		//ok its output time
+		for(int i = 0; i < in.length(); i++) {
+			int j = wheel_1.indexOf(in.charAt(i)); //need to ignore case here!
+			
+		}
+		
+		return out;
 	}
 	
 	private void initUI() {
