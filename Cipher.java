@@ -54,28 +54,26 @@ public class Cipher extends JFrame {
 	
 	private void initUI() {
 		boolean flip = false;
-		int key = 1;
 		
 		var in_field = new JTextArea("Type here",5,50);
 		in_field.setLineWrap(true);
 		var out_field = new JTextArea("Read here",5,50);
 		out_field.setLineWrap(true);
 		
-		var press_this = new JButton("Press to encode text!");
-		press_this.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				out_field.setText( caesarCipher(in_field.getText(), flip, key) );
-			}
-		});
-		
-		var keydisp = new JLabel(Integer.toString(key));
+		var keydisp = new JLabel();
 		
 		var slide = new JSlider(1,26,1);
 		slide.setMinorTickSpacing(1);
 		slide.setPaintTicks(true);
 		slide.addChangeListener((ChangeEvent e) -> {
-			key = slide.getValue();
-			keydisp.setText(Integer.toString(key));
+			keydisp.setText(Integer.toString(slide.getValue()));
+		});
+		
+		var press_this = new JButton("Press to encode text!");
+		press_this.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				out_field.setText( caesarCipher(in_field.getText(), flip, slide.getValue() ) );
+			}
 		});
 		
 		
