@@ -2,6 +2,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
@@ -16,13 +17,16 @@ public class Cipher extends JFrame {
 		initUI();
 	}
 	
-	private String caesarCipher(String in, boolean flip_in, int key_in) {
+	private String vigenereCipher(String in, boolean flip_in, String key_in) {
 		String out = "";
 		String wheel_1 = "abcdefghijklmnopqrstuvwxyz";
 		String wheel_2 = wheel_1;
 		in = in.toLowerCase(); //removes case worries?
+		key_in = key_in.toLowerCase();
 		
-		if(flip_in) {
+		
+		/*
+		if(flip_in) { // thanks to https://stackoverflow.com/a/20252287
 			for(int i = 0; i < key_in; i++) {
 				wheel_2 = wheel_2.charAt(wheel_2.length() - 1) + wheel_2.substring(0, wheel_2.length() - 1);
 			}
@@ -32,16 +36,6 @@ public class Cipher extends JFrame {
 			}
 		}
 		
-		// create two Strings of each letter in sequence
-		// shift one over using split() and join() (???) (actually not this way)
-		// from StackOverflow... the real way to do it
-		// newStr = newStr.charAt(newStr.length() - 1) + newStr.substring(0, newStr.length() - 1);
-		// thanks to https://stackoverflow.com/a/20252287
-		//for each character in input:
-		//	find the character in sequence 1
-		//  find character at same index in sequence 2
-		//  append to output
-		
 		//ok its output time
 		for(int i = 0; i < in.length(); i++) {
 			int j = wheel_1.indexOf(in.charAt(i));
@@ -50,7 +44,9 @@ public class Cipher extends JFrame {
 			}
 		}
 		
-		return out;
+		return out; */
+		
+		return key_in + "..." + in;
 	}
 	
 	private void initUI() {
@@ -60,24 +56,26 @@ public class Cipher extends JFrame {
 		out_field.setLineWrap(true);
 		
 		var keydisp = new JLabel("...");
-		
+		/*
 		var slide = new JSlider(1,26,1);
 		slide.setMinorTickSpacing(1);
 		slide.setPaintTicks(true);
 		slide.addChangeListener((ChangeEvent e) -> {
 			keydisp.setText(Integer.toString(slide.getValue()));
-		});
+		}); */
+		
+		var keyword = new JTextField("Key goes here");
 		
 		var flip = new JToggleButton("Press to flip");
 		
 		var press_this = new JButton("Press to encode text!");
 		press_this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				out_field.setText( caesarCipher(in_field.getText(), flip.isSelected(), slide.getValue() ) );
+				out_field.setText( vigenereCipher(in_field.getText(), flip.isSelected(), keyword.getText() ) );
 			}
 		});
 		
-		createLayout(flip, keydisp, slide, in_field, press_this, out_field);
+		createLayout(flip, keydisp, keyword, in_field, press_this, out_field);
 		setTitle("It's cipher tiem");
 		setLocationRelativeTo(null); //centre window
 		setDefaultCloseOperation(EXIT_ON_CLOSE); //make X button work
