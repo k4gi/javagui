@@ -5,6 +5,7 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
+import javax.swing.JToggleButton;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,14 +54,12 @@ public class Cipher extends JFrame {
 	}
 	
 	private void initUI() {
-		boolean flip = false;
-		
 		var in_field = new JTextArea("Type here",5,50);
 		in_field.setLineWrap(true);
 		var out_field = new JTextArea("Read here",5,50);
 		out_field.setLineWrap(true);
 		
-		var keydisp = new JLabel();
+		var keydisp = new JLabel("...");
 		
 		var slide = new JSlider(1,26,1);
 		slide.setMinorTickSpacing(1);
@@ -69,15 +68,17 @@ public class Cipher extends JFrame {
 			keydisp.setText(Integer.toString(slide.getValue()));
 		});
 		
+		var flip = new JToggleButton("Press to flip");
+		
 		var press_this = new JButton("Press to encode text!");
 		press_this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				out_field.setText( caesarCipher(in_field.getText(), flip, slide.getValue() ) );
+				out_field.setText( caesarCipher(in_field.getText(), flip.isSelected(), slide.getValue() ) );
 			}
 		});
 		
 		
-		createLayout(keydisp, slide, in_field, press_this, out_field);
+		createLayout(flip, keydisp, slide, in_field, press_this, out_field);
 		setTitle("It's cipher tiem");
 		setLocationRelativeTo(null); //centre window
 		setDefaultCloseOperation(EXIT_ON_CLOSE); //make X button work
@@ -92,19 +93,21 @@ public class Cipher extends JFrame {
 			.addGroup(gl.createSequentialGroup()
 				.addComponent(arg[0])
 				.addComponent(arg[1])
+				.addComponent(arg[2])
 			)
-			.addComponent(arg[2])
 			.addComponent(arg[3])
 			.addComponent(arg[4])
+			.addComponent(arg[5])
 		);
 		gl.setVerticalGroup(gl.createSequentialGroup()
 			.addGroup(gl.createParallelGroup()
 				.addComponent(arg[0])
 				.addComponent(arg[1])
+				.addComponent(arg[2])
 			)
-			.addComponent(arg[2])
 			.addComponent(arg[3])
 			.addComponent(arg[4])
+			.addComponent(arg[5])
 		);
 		
 		pack(); //auto-size
