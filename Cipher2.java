@@ -20,33 +20,54 @@ public class Cipher extends JFrame {
 	private String vigenereCipher(String in, boolean flip_in, String key_in) {
 		String out = "";
 		String wheel_1 = "abcdefghijklmnopqrstuvwxyz";
-		String wheel_2 = wheel_1;
 		in = in.toLowerCase(); //removes case worries?
 		key_in = key_in.toLowerCase();
 		
-		
-		/*
-		if(flip_in) { // thanks to https://stackoverflow.com/a/20252287
-			for(int i = 0; i < key_in; i++) {
-				wheel_2 = wheel_2.charAt(wheel_2.length() - 1) + wheel_2.substring(0, wheel_2.length() - 1);
-			}
-		} else {
-			for(int i = 0; i < key_in; i++) {
-				wheel_2 = wheel_2.substring(1, wheel_2.length()) + wheel_2.charAt(0);
+		for(int i = 0; i < key_in.length(); i++) {
+			int j = wheel_1.indexOf(key_in.charAt(i));
+			if(j == -1) {
+				key_in = "";
 			}
 		}
+		if(key_in.equals("")) {
+			return "ERROR: Keyword must have letters only!";
+		} else {
 		
-		//ok its output time
+		// ok how do we do this one...
+		// for every character, shift wheel_2 to the new key? why not
+		// the key is the wheel_1.indexOf(key_in.charAt( whichever-one-we're-looking-at ) ... and +1 maybe?
+		// so, derive key from keyword (remembering to loop the keyword)
+		// then shift wheel_2 to the new position
+		// then encode a single character
+		// repeat till end of file
+		// did i get that right?
+		
+		int key_index = 0;
 		for(int i = 0; i < in.length(); i++) {
+			int key = wheel_1.indexOf(key_in.charAt(key_index)) + 1;
+			key_index ++;
+			if(key_index >= key_in.length()) key_index = 0;
+			
+			String wheel_2 = wheel_1;
+			if(flip_in) { // thanks to https://stackoverflow.com/a/20252287
+				for(int j = 0; j < key; j++) {
+					wheel_2 = wheel_2.charAt(wheel_2.length() - 1) + wheel_2.substring(0, wheel_2.length() - 1);
+				}
+			} else {
+				for(int j = 0; j < key; j++) {
+					wheel_2 = wheel_2.substring(1, wheel_2.length()) + wheel_2.charAt(0);
+				}
+			}
+			
 			int j = wheel_1.indexOf(in.charAt(i));
 			if(j != -1) {
 				out = out + wheel_2.charAt(j);
 			}
+			
 		}
 		
-		return out; */
-		
-		return key_in + "..." + in;
+		return out;
+		}
 	}
 	
 	private void initUI() {
