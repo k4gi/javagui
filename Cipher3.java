@@ -21,14 +21,23 @@ public class Cipher extends JFrame {
 	}
 	
 	private String enigmaCipher(String in) {
-		in = in.toLowerCase();
+		in = in.toUpperCase();
 		String out = "";
-		String keyboard = "abcdefghijklmnopqrstuvwxyz";
-		String plugboard;
-		String[] wheel_i;
-		String[] wheel_ii;
-		String[] wheel_iii;
-		String[] reflector;
+		String keyboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String plugboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //default! not messing with this rn
+		String wheel_i = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
+		String wheel_ii = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
+		String wheel_iii = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
+		String wheel_iv = "ESOVPZJAYQUIRHXLNFTGKDCMWB";
+		String wheel_v = "VZBRGITYUPSDNHLXAWMJQOFECK";
+		String wheel_vi = "JPGVOUMFYQBENHZRDKASXLICTW";
+		String wheel_vii = "NZJHGRCXMYSWBOUFAIVLPEKQDT";
+		String wheel_viii = "FKQHTLXOCBJSPDZRAMEWNIUYGV";
+		String wheel_beta = "LEYJVCNIXWPBQMDRTAKZGFUHOS";
+		String wheel_gamma = "FSOKANUERHMBTIYCWLQPZXVGJD";
+		String reflector_b = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
+		String reflector_c = "FVPJIAOYEDRZXWGCTKUQSBNMHL";
+		// these wheels copied from http://users.telenet.be/d.rijmenants/en/enigmatech.htm
 		
 		/*
 			Here is a video of a paper enigma machine in action.
@@ -47,6 +56,11 @@ public class Cipher extends JFrame {
 			https://www.codesandciphers.org.uk/enigma/rotorspec.htm
 			The wikipedia page has more rotors than the others
 		*/
+		
+		//I'm realising that I should have written more comments in the other Cipher files...
+		//I don't know what's happening! I need to read it carefully...again!
+		
+		return out;
 	}
 	
 	private void initUI() {
