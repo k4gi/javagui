@@ -99,6 +99,36 @@ public class Cipher extends JFrame {
 		//I'm realising that I should have written more comments in the other Cipher files...
 		//I don't know what's happening! I need to read it carefully...again!
 		
+		//I'm just going to go for it
+		
+		//Step 1: get input (that's already done yep)
+		//Step 2: shift rotorwheel III, this code from Cipher2.java, line 58 is what I need...
+		//wheel_2 = wheel_2.substring(1, wheel_2.length()) + wheel_2.charAt(0);
+		//oh I need like 'working directory' wheels
+		String[] working_wheel_i = wheel_i;
+		String[] working_wheel_ii = wheel_ii;
+		String[] working_wheel_iii = wheel_iii; //the numbers, match, yes, just because
+		
+		working_wheel_iii[0] = working_wheel_iii[0].substring(1, working_wheel_iii[0].length()) + working_wheel_iii[0].charAt(0);
+		working_wheel_iii[1] = working_wheel_iii[1].substring(1, working_wheel_iii[1].length()) + working_wheel_iii[1].charAt(0);
+		//i really hope i can just edit the strings like this
+		//time for checking if i need to do it again
+		if(working_wheel_iii[0].charAt(0) == 'W') { //HEY JASON DON"T LEAVE THIS HARDCODED
+			
+			working_wheel_ii[0] = working_wheel_ii[0].substring(1, working_wheel_ii[0].length()) + working_wheel_ii[0].charAt(0);
+			working_wheel_ii[1] = working_wheel_ii[1].substring(1, working_wheel_ii[1].length()) + working_wheel_ii[1].charAt(0);
+			
+			if(working_wheel_ii[0].charAt(0) == 'F') { //MORE HARDCODED CHARS
+				
+				working_wheel_i[0] = working_wheel_i[0].substring(1, working_wheel_i[0].length()) + working_wheel_i[0].charAt(0);
+				working_wheel_i[1] = working_wheel_i[1].substring(1, working_wheel_i[1].length()) + working_wheel_i[1].charAt(0);
+				//since we're only doing three wheels (for now) we can stop here. The reflector doesn't move.
+			}
+		} //at this point it still compiles (though we're not using this code yet) so its probably fine right??
+		//this is the end of turning the wheels now i need to encode
+		
+		
+		
 		return out;
 	}
 	
