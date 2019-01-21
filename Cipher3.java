@@ -25,16 +25,41 @@ public class Cipher extends JFrame {
 		String out = "";
 		String keyboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		String plugboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //default! not messing with this rn
-		String wheel_i = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
-		String wheel_ii = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
-		String wheel_iii = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
-		String wheel_iv = "ESOVPZJAYQUIRHXLNFTGKDCMWB";
-		String wheel_v = "VZBRGITYUPSDNHLXAWMJQOFECK";
-		String wheel_vi = "JPGVOUMFYQBENHZRDKASXLICTW";
-		String wheel_vii = "NZJHGRCXMYSWBOUFAIVLPEKQDT";
-		String wheel_viii = "FKQHTLXOCBJSPDZRAMEWNIUYGV";
-		String wheel_beta = "LEYJVCNIXWPBQMDRTAKZGFUHOS";
-		String wheel_gamma = "FSOKANUERHMBTIYCWLQPZXVGJD";
+		
+		/*
+			Gotta say a little bit about the stepping mechanism.
+			Rotors I-V  have one step, rotors VI-VIII have two.
+			The thing is they're written down as the place on the entry character
+			so I guess I do need to keep track of both after all
+			come to think of it why did I think I didn't? Of course I need to know where its turned to!
+			Anyway. Yes.
+			I'm just going to write them down right now as A-B, meaning when A clicks to B
+		*/
+		String[] wheel_i = { // Q-R
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"EKMFLGDQVZNTOWYHXUSPAIBRCJ"};
+		String[] wheel_ii = { // E-F
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"AJDKSIRUXBLHWTMCQGZNPYFVOE"};
+		String[] wheel_iii = { // V-W
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"BDFHJLCPRTXVZNYEIWGAKMUSQO"};
+		String[] wheel_iv = { // J-K
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"ESOVPZJAYQUIRHXLNFTGKDCMWB"};
+		String[] wheel_v = { // Z-A
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"VZBRGITYUPSDNHLXAWMJQOFECK"};
+		String[] wheel_vi = { // Z-A, M-N
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"JPGVOUMFYQBENHZRDKASXLICTW"};
+		String[] wheel_vii = { // Z-A, M-N
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"NZJHGRCXMYSWBOUFAIVLPEKQDT"};
+		String[] wheel_viii = { // Z-A, M-N
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"FKQHTLXOCBJSPDZRAMEWNIUYGV"};
+		//reflectors don't turn so i guess i can just compare them to the keyboard	
 		String reflector_b = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
 		String reflector_c = "FVPJIAOYEDRZXWGCTKUQSBNMHL";
 		// these wheels copied from http://users.telenet.be/d.rijmenants/en/enigmatech.htm
@@ -49,6 +74,20 @@ public class Cipher extends JFrame {
 			From there to wheel III, to wheel II, to wheel I, to the reflector, then back again...
 			Wheel I, II, III, static wheel, plugboard, then the lampboard. Result!
 			Oh right and in some versions there are four wheels!
+			
+			ugh i'm going to write that out again.
+			1. Input character
+			2. Shift rotors (or wheels) (do i have to pick one?)
+			3. Plugboard
+			4. Wheel III
+			5. Wheel II
+			6. Wheel I
+			7. Reflector
+			8. Wheel I
+			9. Wheel II
+			10. Wheel III
+			11. Plugboard
+			12. Output character!!!!!!!
 			
 			Wheel specs are (apparently) recorded here:
 			https://en.wikipedia.org/wiki/Enigma_rotor_details
