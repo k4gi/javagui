@@ -11,13 +11,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeEvent;
 
+
+
 public class Cipher extends JFrame {
+	boolean debugging = true;
+	
 	public Cipher() {
 		initUI();
 	}
 	
 	private String dummyOutput(String in) {
 		return in;
+	}
+	
+	private void debug(String in) {
+		if(debugging) System.out.println(in);
 	}
 	
 	private String enigmaCipher(String in) {
@@ -102,6 +110,7 @@ public class Cipher extends JFrame {
 		//I'm just going to go for it
 		
 		//Step 1: get input (that's already done yep)
+		debug("Input: " + in);
 		//Step 2: shift rotorwheel III, this code from Cipher2.java, line 58 is what I need...
 		//wheel_2 = wheel_2.substring(1, wheel_2.length()) + wheel_2.charAt(0);
 		//oh I need like 'working directory' wheels
@@ -109,25 +118,98 @@ public class Cipher extends JFrame {
 		String[] working_wheel_ii = wheel_ii;
 		String[] working_wheel_iii = wheel_iii; //the numbers, match, yes, just because
 		
-		working_wheel_iii[0] = working_wheel_iii[0].substring(1, working_wheel_iii[0].length()) + working_wheel_iii[0].charAt(0);
-		working_wheel_iii[1] = working_wheel_iii[1].substring(1, working_wheel_iii[1].length()) + working_wheel_iii[1].charAt(0);
-		//i really hope i can just edit the strings like this
-		//time for checking if i need to do it again
-		if(working_wheel_iii[0].charAt(0) == 'W') { //HEY JASON DON"T LEAVE THIS HARDCODED
+		//start loop here
+		//for each character in the input string
+		for(int i = 0; i < in.length(); i++) {
+			debug("==========START OF LOOP==========");
 			
-			working_wheel_ii[0] = working_wheel_ii[0].substring(1, working_wheel_ii[0].length()) + working_wheel_ii[0].charAt(0);
-			working_wheel_ii[1] = working_wheel_ii[1].substring(1, working_wheel_ii[1].length()) + working_wheel_ii[1].charAt(0);
-			
-			if(working_wheel_ii[0].charAt(0) == 'F') { //MORE HARDCODED CHARS
-				
-				working_wheel_i[0] = working_wheel_i[0].substring(1, working_wheel_i[0].length()) + working_wheel_i[0].charAt(0);
-				working_wheel_i[1] = working_wheel_i[1].substring(1, working_wheel_i[1].length()) + working_wheel_i[1].charAt(0);
-				//since we're only doing three wheels (for now) we can stop here. The reflector doesn't move.
+			char code_letter = in.charAt(i);
+			debug("code_letter: " + code_letter);
+			if(keyboard.indexOf(code_letter) == -1) { //skip character if it's not a letter, don't move wheels
+				continue;
 			}
-		} //at this point it still compiles (though we're not using this code yet) so its probably fine right??
-		//this is the end of turning the wheels now i need to encode
+			
+			debug("Shifting rotors...");
+			//Yeah so clearly there's something wrong with how I'm moving the wheels
+			//Alphabet gets shifted, coded letters get shifted, that means it ends up being the same every time
+			//So I'm doing it wrong. Gotta figure out the solution.
+			//Good news, the code "works" at least!
 		
-		
+			working_wheel_iii[0] = working_wheel_iii[0].substring(1, working_wheel_iii[0].length()) + working_wheel_iii[0].charAt(0);
+			working_wheel_iii[1] = working_wheel_iii[1].substring(1, working_wheel_iii[1].length()) + working_wheel_iii[1].charAt(0);
+			//i really hope i can just edit the strings like this
+			//time for checking if i need to do it again
+			if(working_wheel_iii[0].charAt(0) == 'W') { //HEY JASON DON"T LEAVE THIS HARDCODED
+				
+				working_wheel_ii[0] = working_wheel_ii[0].substring(1, working_wheel_ii[0].length()) + working_wheel_ii[0].charAt(0);
+				working_wheel_ii[1] = working_wheel_ii[1].substring(1, working_wheel_ii[1].length()) + working_wheel_ii[1].charAt(0);
+				
+				if(working_wheel_ii[0].charAt(0) == 'F') { //MORE HARDCODED CHARS
+					
+					working_wheel_i[0] = working_wheel_i[0].substring(1, working_wheel_i[0].length()) + working_wheel_i[0].charAt(0);
+					working_wheel_i[1] = working_wheel_i[1].substring(1, working_wheel_i[1].length()) + working_wheel_i[1].charAt(0);
+					//since we're only doing three wheels (for now) we can stop here. The reflector doesn't move.
+				}
+			} //at this point it still compiles (though we're not using this code yet) so its probably fine right??
+			//this is the end of turning the wheels now i need to encode
+			//just a thought how the ufck am i going to test this code
+			
+			debug( "W-I:   " + working_wheel_i[0] + " / " + working_wheel_i[1] );
+			debug( "W-II:  " + working_wheel_ii[0] + " / " + working_wheel_ii[1] );
+			debug( "W-III: " + working_wheel_iii[0] + " / " + working_wheel_iii[1] );
+			
+			//Step 3: plugboard.... ummm its first thing in the morning i'll come back later
+			//need to set up the main loop, so I can tell which character to be looking at, to go forward from here
+			
+			code_letter = plugboard.charAt( keyboard.indexOf(code_letter) );
+			debug("Plugboard... " + code_letter);
+			
+			//Step 4: Wheel III
+			
+			code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
+			debug("Wheel III... " + code_letter);
+			
+			//Step 5: Wheel II
+			
+			code_letter = working_wheel_ii[1].charAt( working_wheel_iii[0].indexOf(code_letter) );
+			debug("Wheel II...  " + code_letter);
+			
+			//Step 6: Wheel I
+			
+			code_letter = working_wheel_i[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
+			debug("Wheel I...   " + code_letter);
+			
+			//Step 7: Reflector ... Let's just use reflector B for now
+			
+			code_letter = reflector_b.charAt( keyboard.indexOf(code_letter) );
+			debug("Reflector... " + code_letter);
+			
+			//Step 8: Wheel I
+			
+			code_letter = working_wheel_i[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
+			debug("Wheel I...   " + code_letter);
+			
+			//Step 9: Wheel II
+			
+			code_letter = working_wheel_ii[1].charAt( working_wheel_iii[0].indexOf(code_letter) );
+			debug("Wheel II...  " + code_letter);
+			
+			//Step 10: Wheel III
+			
+			code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
+			debug("Wheel III... " + code_letter);
+			
+			//Step 11: Plugboard
+			
+			code_letter = plugboard.charAt( keyboard.indexOf(code_letter) );
+			debug("Plugboard... " + code_letter);
+			
+			//Step 12: Output
+			
+			out += code_letter;
+			
+			
+		}
 		
 		return out;
 	}
@@ -143,7 +225,7 @@ public class Cipher extends JFrame {
 		var press_this = new JButton("Press to encode text!");
 		press_this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				out_field.setText( dummyOutput( in_field.getText() ) );
+				out_field.setText( enigmaCipher( in_field.getText() ) );
 			}
 		});
 		
