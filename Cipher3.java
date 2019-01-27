@@ -164,40 +164,47 @@ public class Cipher extends JFrame {
 			code_letter = plugboard.charAt( keyboard.indexOf(code_letter) );
 			debug("Plugboard... " + code_letter);
 			
-			//Step 4: Wheel III
-			
-			code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
-			debug("Wheel III... " + code_letter);
-			
-			//Step 5: Wheel II
-			
-			code_letter = working_wheel_ii[1].charAt( working_wheel_iii[0].indexOf(code_letter) );
-			debug("Wheel II...  " + code_letter);
-			
-			//Step 6: Wheel I
-			
-			code_letter = working_wheel_i[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
-			debug("Wheel I...   " + code_letter);
-			
-			//Step 7: Reflector ... Let's just use reflector B for now
-			
-			code_letter = reflector_b.charAt( keyboard.indexOf(code_letter) );
-			debug("Reflector... " + code_letter);
-			
-			//Step 8: Wheel I
-			
-			code_letter = working_wheel_i[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
-			debug("Wheel I...   " + code_letter);
-			
-			//Step 9: Wheel II
-			
-			code_letter = working_wheel_ii[1].charAt( working_wheel_iii[0].indexOf(code_letter) );
-			debug("Wheel II...  " + code_letter);
-			
-			//Step 10: Wheel III
-			
-			code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
-			debug("Wheel III... " + code_letter);
+			if(false) { //well if it doesn't work why run it
+				//just having some trouble here working out the code...
+				//i'm sure it'll come together soon but its confusing...
+				//found an Enigma project made with an arduino. Pretty cool.
+				// https://www.instructables.com/id/Make-your-own-Enigma-Replica/
+				
+				//Step 4: Wheel III
+				
+				code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
+				debug("Wheel III... " + code_letter);
+				
+				//Step 5: Wheel II
+				
+				code_letter = working_wheel_ii[1].charAt( working_wheel_iii[0].indexOf(code_letter) );
+				debug("Wheel II...  " + code_letter);
+				
+				//Step 6: Wheel I
+				
+				code_letter = working_wheel_i[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
+				debug("Wheel I...   " + code_letter);
+				
+				//Step 7: Reflector ... Let's just use reflector B for now
+				
+				code_letter = reflector_b.charAt( working_wheel_i[0].indexOf(code_letter) );
+				debug("Reflector... " + code_letter);
+				
+				//Step 8: Wheel I
+				
+				code_letter = working_wheel_i[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
+				debug("Wheel I...   " + code_letter);
+				
+				//Step 9: Wheel II
+				
+				code_letter = working_wheel_ii[1].charAt( working_wheel_iii[0].indexOf(code_letter) );
+				debug("Wheel II...  " + code_letter);
+				
+				//Step 10: Wheel III
+				
+				code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
+				debug("Wheel III... " + code_letter);
+			}
 			
 			//Step 11: Plugboard
 			
