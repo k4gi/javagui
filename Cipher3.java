@@ -181,10 +181,31 @@ public class Cipher extends JFrame {
 				http://users.telenet.be/d.rijmenants/en/enigmatech.htm
 			*/
 			
+			/*
+				OK it's most of the way through February and I'm back to finish this off
+				I've been mulling it over for a long while
+				And I think I have the solution.
+				Each wheel has two parts, right!
+				The left, which is the normal alphabet
+				And the  right, which is the scrambled alphabet.
+				The way I have the wheels represented right now is insufficient,
+				because it doesn't take into account the relative positions of,
+				the contacts of the left and right, and how they're wired to each other.
+				...
+				ugh, no, that's not right, it's fine how they're represented.
+				I just need to do some of the transformations backwards.
+				Or something. You know what maybe I should just have another go at it.
+				yeah here goes
+			*/
+			
 			
 			//Step 4: Wheel III
 			
-			code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
+			//code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
+			
+			//which contact am i touching?? keyboard.indexOf(code_letter)
+			//which letter (left side) is connected to that contact?? i don't know
+			//i need to know this
 			debug("Wheel III... " + code_letter);
 			
 			//Step 5: Wheel II
