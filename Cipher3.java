@@ -200,6 +200,37 @@ public class Cipher extends JFrame {
 				...
 				
 				its nearly the end of february and i'm back again trying to make this happen oh boy
+				beginning of march! look i'm getting there ok
+				
+				the steps to move forward (left) through the enigma machine are...
+				1. Identify the entry point
+					To make it easier I'm going to transform code_letter into its un-rotated form between each wheel
+					This is derived from the position of string[0] compared to keyboard
+					there's some charAt / indexOf calculations that can take care of that pretty easy
+					but they're not coming to mind right now but that's ok
+				2. Move through the wheel
+					Going forward, this is a simple case of matching the entry character in string [0] with its counterpart in [1]
+				3. Identify exit point
+					So you have the new letter from string[1]. But it needs to exit at the position of string[0]!
+					Tranform code_letter into its un-rotated form, based on that position.
+					
+				the steps to move backward (right) are...
+				1. Identify the entry point
+					This is the same as going forward. Transform the un-rotated letter with string[0]
+				2. Move through the wheel
+					Going through the wheel backwards has been fucking with me for so long but I really think I have it this time.
+					We just need to find code_letter in string[1], and transform it into the matching char in string [0]
+				3. Identify the exit point
+					Since we're going backwards we're already in the right position to un-rotate code_letter
+				
+				steps to move through the reflector...
+				1. transform code_letter
+					The reflector doesn't rotate so just find code_letter in keyboard and match the position to the reflector
+				2. exit reflector
+					you know what i don't think there's anything else to do here
+				
+				steps to move through the plugboard
+				1. do the same thing as for the reflector
 			*/
 			
 			
