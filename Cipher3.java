@@ -236,6 +236,13 @@ public class Cipher extends JFrame {
 			
 			//Step 4: Wheel III
 			
+			//entry
+			code_letter = working_wheel_iii[0].charAt( keyboard.indexOf(code_letter) );
+			//encode
+			code_letter = working_wheel_iii[1].charAt( working_wheel_iii[0].indexOf(code_letter) );
+			//exit
+			code_letter = keyboard.charAt( working_wheel_iii[0].indexOf(code_letter) );
+			
 			//code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
 			
 			//which contact am i touching?? keyboard.indexOf(code_letter)
@@ -245,40 +252,76 @@ public class Cipher extends JFrame {
 			
 			//Step 5: Wheel II
 			
+			//entry
+			code_letter = working_wheel_ii[0].charAt( keyboard.indexOf(code_letter) );
+			//encode
+			code_letter = working_wheel_ii[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
+			//exit
+			code_letter = keyboard.charAt( working_wheel_ii[0].indexOf(code_letter) );
+			
 			//code_letter = working_wheel_ii[1].charAt( working_wheel_iii[0].indexOf(code_letter) );
 			debug("Wheel II...  " + code_letter);
 			
 			//Step 6: Wheel I
+			
+			//entry
+			code_letter = working_wheel_i[0].charAt( keyboard.indexOf(code_letter) );
+			//encode
+			code_letter = working_wheel_i[1].charAt( working_wheel_i[0].indexOf(code_letter) );
+			//exit
+			code_letter = keyboard.charAt( working_wheel_i[0].indexOf(code_letter) );
 			
 			//code_letter = working_wheel_i[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
 			debug("Wheel I...   " + code_letter);
 			
 			//Step 7: Reflector ... Let's just use reflector B for now
 			
+			code_letter = reflector_b.charAt( keyboard.indexOf(code_letter) );
+			
 			//code_letter = reflector_b.charAt( working_wheel_i[0].indexOf(code_letter) );
 			debug("Reflector... " + code_letter);
 			
 			//Step 8: Wheel I
 			
-			//code_letter = working_wheel_i[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
-			code_letter = working_wheel_i[0].charAt(keyboard.indexOf(code_letter); //ready to go through wheel
-			code_letter = working_wheel_i[0].charAt(working_wheel_i[1].indexOf(code_letter); //passing backwards through wheel
+			//entry
+			code_letter = working_wheel_i[0].charAt( keyboard.indexOf(code_letter) ); //ready to go through wheel
+			//encode (but backwards!}
+			code_letter = working_wheel_i[0].charAt( working_wheel_i[1].indexOf(code_letter) ); //passing backwards through wheel
 			//so how about it did i do it this time??? 2019-02-26
+			//yes i thignk i might have 2019-03-05
+			//exit
+			code_letter = keyboard.charAt( working_wheel_i[0].indexOf(code_letter) );
+			
+			//code_letter = working_wheel_i[1].charAt( working_wheel_ii[0].indexOf(code_letter) );
 			debug("Wheel I...   " + code_letter);
 			
 			//Step 9: Wheel II
+			
+			//entry
+			code_letter = working_wheel_ii[0].charAt( keyboard.indexOf(code_letter) );
+			//encode
+			code_letter = working_wheel_ii[0].charAt( working_wheel_ii[1].indexOf(code_letter) );
+			//exit
+			code_letter = keyboard.charAt( working_wheel_ii[0].indexOf(code_letter) );
 			
 			//code_letter = working_wheel_ii[1].charAt( working_wheel_iii[0].indexOf(code_letter) );
 			debug("Wheel II...  " + code_letter);
 			
 			//Step 10: Wheel III
 			
+			//entry
+			code_letter = working_wheel_iii[0].charAt( keyboard.indexOf(code_letter) );
+			//encode
+			code_letter = working_wheel_iii[0].charAt( working_wheel_ii[1].indexOf(code_letter) );
+			//exit
+			code_letter = keyboard.charAt( working_wheel_iii[0].indexOf(code_letter) );
+			
 			//code_letter = working_wheel_iii[1].charAt( keyboard.indexOf(code_letter) );
 			debug("Wheel III... " + code_letter);
 			
 			//Step 11: Plugboard
 			
-			//code_letter = plugboard.charAt( keyboard.indexOf(code_letter) );
+			code_letter = plugboard.charAt( keyboard.indexOf(code_letter) );
 			debug("Plugboard... " + code_letter);
 			
 			//Step 12: Output
