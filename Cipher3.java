@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
+import javax.swing.JComboBox;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -349,7 +350,28 @@ public class Cipher extends JFrame {
 			}
 		});
 		
-		createLayout(in_field, press_this, out_field);
+		var label0 = new JLabel("Change wheel settings here...");
+		var label1 = new JLabel("Wheel I..");
+		var label2 = new JLabel("Wheel II.");
+		var label3 = new JLabel("Wheel III");
+		var slide1 = new JSlider(1,26,1);
+		var slide2 = new JSlider(1,26,1);
+		var slide3 = new JSlider(1,26,1);
+
+		slide1.setMinorTickSpacing(1);
+		slide2.setMinorTickSpacing(1);
+		slide3.setMinorTickSpacing(1);
+		slide1.setPaintTicks(true);
+		slide2.setPaintTicks(true);
+		slide3.setPaintTicks(true);
+
+		String[] wheel_list = {"Wheel I", "Wheel II", "Wheel III", "Wheel IV", "Wheel V", "Wheel VI", "Wheel VII"};
+
+		var select1 = new JComboBox(wheel_list);
+		var select2 = new JComboBox(wheel_list);
+		var select3 = new JComboBox(wheel_list);
+
+		createLayout(in_field, press_this, out_field, label0, label1, slide1, label2, slide2, label3, slide3, select1, select2, select3);
 		setTitle("It's cipher tiem");
 		setLocationRelativeTo(null); //centre window
 		setDefaultCloseOperation(EXIT_ON_CLOSE); //make X button work
@@ -364,11 +386,47 @@ public class Cipher extends JFrame {
 			.addComponent(arg[0])
 			.addComponent(arg[1])
 			.addComponent(arg[2])
+			.addComponent(arg[3])
+			.addGroup(gl.createSequentialGroup()
+				.addComponent(arg[4])
+				.addComponent(arg[5])
+			)
+			.addGroup(gl.createSequentialGroup()
+				.addComponent(arg[6])
+				.addComponent(arg[7])
+			)
+			.addGroup(gl.createSequentialGroup()
+				.addComponent(arg[8])
+				.addComponent(arg[9])
+			)
+			.addGroup(gl.createSequentialGroup()
+				.addComponent(arg[10])
+				.addComponent(arg[11])
+				.addComponent(arg[12])
+			)
 		);
 		gl.setVerticalGroup(gl.createSequentialGroup()
 			.addComponent(arg[0])
 			.addComponent(arg[1])
 			.addComponent(arg[2])
+			.addComponent(arg[3])
+			.addGroup(gl.createParallelGroup()
+				.addComponent(arg[4])
+				.addComponent(arg[5])
+			)
+			.addGroup(gl.createParallelGroup()
+				.addComponent(arg[6])
+				.addComponent(arg[7])
+			)
+			.addGroup(gl.createParallelGroup()
+				.addComponent(arg[8])
+				.addComponent(arg[9])
+			)
+			.addGroup(gl.createParallelGroup()
+				.addComponent(arg[10])
+				.addComponent(arg[11])
+				.addComponent(arg[12])
+			)
 		);
 		
 		pack(); //auto-size
