@@ -12,6 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeEvent;
 
+// on 2019-03-06 i found a bug in this code!
+// spaces dont encode properly. i guess it still ticks to the next key letter?
+// anyway im not fixing it right now so yeah
+
 public class Cipher extends JFrame {
 	public Cipher() {
 		initUI();
