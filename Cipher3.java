@@ -312,7 +312,7 @@ public class Cipher extends JFrame {
 			//entry
 			code_letter = working_wheel_iii[0].charAt( keyboard.indexOf(code_letter) );
 			//encode
-			code_letter = working_wheel_iii[0].charAt( working_wheel_ii[1].indexOf(code_letter) );
+			code_letter = working_wheel_iii[0].charAt( working_wheel_iii[1].indexOf(code_letter) );
 			//exit
 			code_letter = keyboard.charAt( working_wheel_iii[0].indexOf(code_letter) );
 			
