@@ -11,6 +11,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeEvent;
+import java.util.Hashtable;
 
 
 
@@ -46,28 +47,36 @@ public class Cipher extends JFrame {
 		*/
 		String[] wheel_i = { // Q-R
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-			"EKMFLGDQVZNTOWYHXUSPAIBRCJ"};
+			"EKMFLGDQVZNTOWYHXUSPAIBRCJ",
+			"R"};
 		String[] wheel_ii = { // E-F
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-			"AJDKSIRUXBLHWTMCQGZNPYFVOE"};
+			"AJDKSIRUXBLHWTMCQGZNPYFVOE",
+			"F"};
 		String[] wheel_iii = { // V-W
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-			"BDFHJLCPRTXVZNYEIWGAKMUSQO"};
+			"BDFHJLCPRTXVZNYEIWGAKMUSQO",
+			"W"};
 		String[] wheel_iv = { // J-K
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-			"ESOVPZJAYQUIRHXLNFTGKDCMWB"};
+			"ESOVPZJAYQUIRHXLNFTGKDCMWB",
+			"K",};
 		String[] wheel_v = { // Z-A
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-			"VZBRGITYUPSDNHLXAWMJQOFECK"};
+			"VZBRGITYUPSDNHLXAWMJQOFECK",
+			"A"};
 		String[] wheel_vi = { // Z-A, M-N
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-			"JPGVOUMFYQBENHZRDKASXLICTW"};
+			"JPGVOUMFYQBENHZRDKASXLICTW",
+			"AN"};
 		String[] wheel_vii = { // Z-A, M-N
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-			"NZJHGRCXMYSWBOUFAIVLPEKQDT"};
+			"NZJHGRCXMYSWBOUFAIVLPEKQDT",
+			"AN"};
 		String[] wheel_viii = { // Z-A, M-N
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-			"FKQHTLXOCBJSPDZRAMEWNIUYGV"};
+			"FKQHTLXOCBJSPDZRAMEWNIUYGV",
+			"AN"};
 		//reflectors don't turn so i guess i can just compare them to the keyboard	
 		String reflector_b = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
 		String reflector_c = "FVPJIAOYEDRZXWGCTKUQSBNMHL";
@@ -140,12 +149,12 @@ public class Cipher extends JFrame {
 			working_wheel_iii[1] = working_wheel_iii[1].substring(1, working_wheel_iii[1].length()) + working_wheel_iii[1].charAt(0);
 			//i really hope i can just edit the strings like this
 			//time for checking if i need to do it again
-			if(working_wheel_iii[0].charAt(0) == 'W') { //HEY JASON DON"T LEAVE THIS HARDCODED
+			if( working_wheel_iii[0].charAt(0) == working_wheel_iii[2].charAt(0) ) { //need to add the second tick for wheels VI, VII, VIII
 				
 				working_wheel_ii[0] = working_wheel_ii[0].substring(1, working_wheel_ii[0].length()) + working_wheel_ii[0].charAt(0);
 				working_wheel_ii[1] = working_wheel_ii[1].substring(1, working_wheel_ii[1].length()) + working_wheel_ii[1].charAt(0);
 				
-				if(working_wheel_ii[0].charAt(0) == 'F') { //MORE HARDCODED CHARS
+				if( working_wheel_ii[0].charAt(0) == working_wheel_ii[2].charAt(0) ) { //need to add the second tick for wheels VI, VII, VIII
 					
 					working_wheel_i[0] = working_wheel_i[0].substring(1, working_wheel_i[0].length()) + working_wheel_i[0].charAt(0);
 					working_wheel_i[1] = working_wheel_i[1].substring(1, working_wheel_i[1].length()) + working_wheel_i[1].charAt(0);
@@ -351,9 +360,11 @@ public class Cipher extends JFrame {
 		});
 		
 		var label0 = new JLabel("Change wheel settings here...");
-		var label1 = new JLabel("Wheel I..");
-		var label2 = new JLabel("Wheel II.");
-		var label3 = new JLabel("Wheel III");
+		var label1 = new JLabel("Slot I..");
+		var label2 = new JLabel("Slot II.");
+		var label3 = new JLabel("Slot III");
+		var labelp = new JLabel("Change plugboard settings here...");
+		
 		var slide1 = new JSlider(1,26,1);
 		var slide2 = new JSlider(1,26,1);
 		var slide3 = new JSlider(1,26,1);
@@ -364,14 +375,46 @@ public class Cipher extends JFrame {
 		slide1.setPaintTicks(true);
 		slide2.setPaintTicks(true);
 		slide3.setPaintTicks(true);
+		slide1.setPaintLabels(true);
+		slide2.setPaintLabels(true);
+		slide3.setPaintLabels(true);
+		
+		JLabel[] plugboard_labels = new JLabel[26];
+		JComboBox[] plugboard_menu = new JComboBox[26];
+		for(int i = 0; i < 26; i ++) {
+			plugboard_menu[i] = new JComboBox();
+			plugboard_menu[i].addItem("---");
+		}
+		
+		String keyboard_copy = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //duplicate
+		Hashtable markers = new Hashtable();
+		for(int i = 0; i < 26; i ++) {
+			markers.put(i+1, new JLabel( Character.toString(keyboard_copy.charAt(i)) ));
+			
+			plugboard_labels[i] = new JLabel( keyboard_copy.charAt(i) + " = ");
+			
+			for(int j = 0; j < 26; j ++) {
+				if(i != j) plugboard_menu[j].addItem( Character.toString(keyboard_copy.charAt(i)) );
+			} 
+		}
+		
+		slide1.setLabelTable(markers);
+		slide2.setLabelTable(markers);
+		slide3.setLabelTable(markers);
 
-		String[] wheel_list = {"Wheel I", "Wheel II", "Wheel III", "Wheel IV", "Wheel V", "Wheel VI", "Wheel VII"};
+		String[] wheel_list = {"Wheel I", "Wheel II", "Wheel III", "Wheel IV", "Wheel V", "Wheel VI", "Wheel VII", "Wheel VIII"};
+		String[] reflector_list = {"Reflector B", "Reflector C"};
 
 		var select1 = new JComboBox(wheel_list);
 		var select2 = new JComboBox(wheel_list);
 		var select3 = new JComboBox(wheel_list);
+		
+		var selectr = new JComboBox(reflector_list);
 
-		createLayout(in_field, press_this, out_field, label0, label1, slide1, label2, slide2, label3, slide3, select1, select2, select3);
+		createLayout(
+			plugboard_labels[0], plugboard_labels[1], plugboard_labels[2], plugboard_labels[3], plugboard_labels[4], plugboard_labels[5], plugboard_labels[6], plugboard_labels[7], plugboard_labels[8], plugboard_labels[9], plugboard_labels[10], plugboard_labels[11], plugboard_labels[12], plugboard_labels[13], plugboard_labels[14], plugboard_labels[15], plugboard_labels[16], plugboard_labels[17], plugboard_labels[18], plugboard_labels[19], plugboard_labels[20], plugboard_labels[21], plugboard_labels[21], plugboard_labels[23], plugboard_labels[24], plugboard_labels[25], 
+			plugboard_menu[0], plugboard_menu[1], plugboard_menu[2], plugboard_menu[3], plugboard_menu[4], plugboard_menu[5], plugboard_menu[6], plugboard_menu[7], plugboard_menu[8], plugboard_menu[9], plugboard_menu[10], plugboard_menu[11], plugboard_menu[12], plugboard_menu[13], plugboard_menu[14], plugboard_menu[15], plugboard_menu[16], plugboard_menu[17], plugboard_menu[18], plugboard_menu[19], plugboard_menu[20], plugboard_menu[21], plugboard_menu[22], plugboard_menu[23], plugboard_menu[24], plugboard_menu[25], 
+			in_field, press_this, out_field, label0, label1, select1, slide1, label2, select2, slide2, label3, select3, slide3, selectr, labelp);
 		setTitle("It's cipher tiem");
 		setLocationRelativeTo(null); //centre window
 		setDefaultCloseOperation(EXIT_ON_CLOSE); //make X button work
@@ -383,50 +426,259 @@ public class Cipher extends JFrame {
         pane.setLayout(gl);
 		
 		gl.setHorizontalGroup(gl.createParallelGroup()
-			.addComponent(arg[0])
-			.addComponent(arg[1])
-			.addComponent(arg[2])
-			.addComponent(arg[3])
+			.addComponent(arg[52])
+			.addComponent(arg[53])
+			.addComponent(arg[54])
+			.addComponent(arg[55])
 			.addGroup(gl.createSequentialGroup()
-				.addComponent(arg[4])
-				.addComponent(arg[5])
+				.addComponent(arg[56])
+				.addComponent(arg[57])
+				.addComponent(arg[58])
 			)
 			.addGroup(gl.createSequentialGroup()
-				.addComponent(arg[6])
-				.addComponent(arg[7])
+				.addComponent(arg[59])
+				.addComponent(arg[60])
+				.addComponent(arg[61])
 			)
 			.addGroup(gl.createSequentialGroup()
-				.addComponent(arg[8])
-				.addComponent(arg[9])
+				.addComponent(arg[62])
+				.addComponent(arg[63])
+				.addComponent(arg[64])
 			)
+			.addComponent(arg[65])
+			.addComponent(arg[66])
 			.addGroup(gl.createSequentialGroup()
-				.addComponent(arg[10])
-				.addComponent(arg[11])
-				.addComponent(arg[12])
-			)
+					.addComponent(arg[0])
+					.addComponent(arg[26])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[1])
+					.addComponent(arg[27])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[2])
+					.addComponent(arg[28])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[3])
+					.addComponent(arg[29])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[4])
+					.addComponent(arg[30])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[5])
+					.addComponent(arg[31])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[6])
+					.addComponent(arg[32])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[7])
+					.addComponent(arg[33])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[8])
+					.addComponent(arg[34])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[9])
+					.addComponent(arg[35])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[10])
+					.addComponent(arg[36])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[11])
+					.addComponent(arg[37])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[12])
+					.addComponent(arg[38])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[13])
+					.addComponent(arg[39])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[14])
+					.addComponent(arg[40])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[15])
+					.addComponent(arg[41])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[16])
+					.addComponent(arg[42])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[17])
+					.addComponent(arg[43])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[18])
+					.addComponent(arg[44])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[19])
+					.addComponent(arg[45])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[20])
+					.addComponent(arg[46])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[21])
+					.addComponent(arg[47])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[22])
+					.addComponent(arg[48])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[23])
+					.addComponent(arg[49])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[24])
+					.addComponent(arg[50])
+				)
+			.addGroup(gl.createSequentialGroup()
+					.addComponent(arg[25])
+					.addComponent(arg[51])
+				)
+			
 		);
 		gl.setVerticalGroup(gl.createSequentialGroup()
-			.addComponent(arg[0])
-			.addComponent(arg[1])
-			.addComponent(arg[2])
-			.addComponent(arg[3])
+			.addComponent(arg[52])
+			.addComponent(arg[53])
+			.addComponent(arg[54])
+			.addComponent(arg[55])
 			.addGroup(gl.createParallelGroup()
-				.addComponent(arg[4])
-				.addComponent(arg[5])
+				.addComponent(arg[56])
+				.addComponent(arg[57])
+				.addComponent(arg[58])
 			)
 			.addGroup(gl.createParallelGroup()
-				.addComponent(arg[6])
-				.addComponent(arg[7])
+				.addComponent(arg[59])
+				.addComponent(arg[60])
+				.addComponent(arg[61])
 			)
 			.addGroup(gl.createParallelGroup()
-				.addComponent(arg[8])
-				.addComponent(arg[9])
+				.addComponent(arg[62])
+				.addComponent(arg[63])
+				.addComponent(arg[64])
 			)
+			.addComponent(arg[65])
+			.addComponent(arg[66])
 			.addGroup(gl.createParallelGroup()
-				.addComponent(arg[10])
-				.addComponent(arg[11])
-				.addComponent(arg[12])
-			)
+					.addComponent(arg[0])
+					.addComponent(arg[26])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[1])
+					.addComponent(arg[27])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[2])
+					.addComponent(arg[28])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[3])
+					.addComponent(arg[29])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[4])
+					.addComponent(arg[30])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[5])
+					.addComponent(arg[31])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[6])
+					.addComponent(arg[32])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[7])
+					.addComponent(arg[33])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[8])
+					.addComponent(arg[34])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[9])
+					.addComponent(arg[35])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[10])
+					.addComponent(arg[36])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[11])
+					.addComponent(arg[37])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[12])
+					.addComponent(arg[38])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[13])
+					.addComponent(arg[39])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[14])
+					.addComponent(arg[40])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[15])
+					.addComponent(arg[41])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[16])
+					.addComponent(arg[42])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[17])
+					.addComponent(arg[43])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[18])
+					.addComponent(arg[44])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[19])
+					.addComponent(arg[45])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[20])
+					.addComponent(arg[46])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[21])
+					.addComponent(arg[47])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[22])
+					.addComponent(arg[48])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[23])
+					.addComponent(arg[49])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[24])
+					.addComponent(arg[50])
+				)
+			.addGroup(gl.createParallelGroup()
+					.addComponent(arg[25])
+					.addComponent(arg[51])
+				)
 		);
 		
 		pack(); //auto-size
