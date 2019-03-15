@@ -30,7 +30,8 @@ public class Cipher extends JFrame {
 		if(debugging) System.out.println(in);
 	}
 	
-	private String enigmaCipher(String in) {
+	private String enigmaCipher(String in, String in_wheel1, int in_start1, String in_wheel2, int in_start2, String in_wheel3, int in_start3) {
+		debug("==========STARTING enigmaCipher()==========");
 		in = in.toUpperCase();
 		String out = "";
 		String keyboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -121,13 +122,60 @@ public class Cipher extends JFrame {
 		
 		//Step 1: get input (that's already done yep)
 		debug("Input: " + in);
+		debug("Slot 1: " + in_wheel1);
+		debug("Setting 1: " + in_start1);
+		debug("Slot 2" + in_wheel2);
+		debug("Setting 2: " + in_start2);
+		debug("Slot 3: " + in_wheel3);
+		debug("Setting 3: " + in_start3);
+		// It's March 15 and I've just got some settings passing through to this function.
+		// It's time to make them actually set some things.
+		// I've got Strings to tell me which wheels to use in each of the three slots,
+		// And I've got ints to tell me what their settings should be.
+		// Hey, are the roll-over points still hard-coded just down there?
+		// No it looks like I've dealt with that already.
+
+
 		//Step 2: shift rotorwheel III, this code from Cipher2.java, line 58 is what I need...
 		//wheel_2 = wheel_2.substring(1, wheel_2.length()) + wheel_2.charAt(0);
 		//oh I need like 'working directory' wheels
-		String[] working_wheel_i = wheel_i;
-		String[] working_wheel_ii = wheel_ii;
-		String[] working_wheel_iii = wheel_iii; //the numbers, match, yes, just because
-		
+		//String[] working_wheel_i = wheel_i;
+		//String[] working_wheel_ii = wheel_ii;
+		//String[] working_wheel_iii = wheel_iii; //the numbers, match, yes, just because
+		String[] working_wheel_i;
+		String[] working_wheel_ii;
+		String[] working_wheel_iii;
+		switch(in_wheel1) {
+			case "Wheel I" :
+				working_wheel_i = wheel_i;
+				break;
+			case "Wheel II" :
+				working_wheel_i = wheel_ii;
+				break;
+			case "Wheel III" :
+				working_wheel_i = wheel_iii;
+				break;
+			case "Wheel IV" :
+				working_wheel_i = wheel_iv;
+				break;
+			case "Wheel V" :
+				working_wheel_i = wheel_v;
+				break;
+			case "Wheel VI" :
+				working_wheel_i = wheel_vi;
+				break;
+			case "Wheel VII" :
+				working_wheel_i = wheel_vii;
+				break;
+			case "Wheel VIII" :
+				working_wheel_i = wheel_viii;
+				break;
+			default:
+				working_wheel_i = wheel_i;
+		}
+
+
+
 		//start loop here
 		//for each character in the input string
 		for(int i = 0; i < in.length(); i++) {
@@ -352,12 +400,6 @@ public class Cipher extends JFrame {
 		
 		
 		
-		var press_this = new JButton("Press to encode text!");
-		press_this.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				out_field.setText( enigmaCipher( in_field.getText() ) );
-			}
-		});
 		
 		var label0 = new JLabel("Change wheel settings here...");
 		var label1 = new JLabel("Slot I..");
@@ -410,6 +452,13 @@ public class Cipher extends JFrame {
 		var select3 = new JComboBox(wheel_list);
 		
 		var selectr = new JComboBox(reflector_list);
+
+		var press_this = new JButton("Press to encode text!");
+		press_this.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				out_field.setText( enigmaCipher( in_field.getText(), String.valueOf(select1.getSelectedItem()), slide1.getValue(), String.valueOf(select2.getSelectedItem()), slide2.getValue(), String.valueOf(select3.getSelectedItem()), slide3.getValue() ) );
+			}
+		});
 
 		createLayout(
 			plugboard_labels[0], plugboard_labels[1], plugboard_labels[2], plugboard_labels[3], plugboard_labels[4], plugboard_labels[5], plugboard_labels[6], plugboard_labels[7], plugboard_labels[8], plugboard_labels[9], plugboard_labels[10], plugboard_labels[11], plugboard_labels[12], plugboard_labels[13], plugboard_labels[14], plugboard_labels[15], plugboard_labels[16], plugboard_labels[17], plugboard_labels[18], plugboard_labels[19], plugboard_labels[20], plugboard_labels[21], plugboard_labels[21], plugboard_labels[23], plugboard_labels[24], plugboard_labels[25], 
