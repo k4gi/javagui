@@ -155,90 +155,92 @@ public class Cipher extends JFrame {
 			since thats not something you do with an enigma machine,
 			you only have one copy of each wheel.
 			But it'd be better to sort out this problem instead I think.
+
+			OK fixed :)
 		*/
 		switch(in_wheel1) {
 			case "Wheel I" :
-				working_wheel_i = wheel_i;
+				working_wheel_i = wheel_i.clone();
 				break;
 			case "Wheel II" :
-				working_wheel_i = wheel_ii;
+				working_wheel_i = wheel_ii.clone();
 				break;
 			case "Wheel III" :
-				working_wheel_i = wheel_iii;
+				working_wheel_i = wheel_iii.clone();
 				break;
 			case "Wheel IV" :
-				working_wheel_i = wheel_iv;
+				working_wheel_i = wheel_iv.clone();
 				break;
 			case "Wheel V" :
-				working_wheel_i = wheel_v;
+				working_wheel_i = wheel_v.clone();
 				break;
 			case "Wheel VI" :
-				working_wheel_i = wheel_vi;
+				working_wheel_i = wheel_vi.clone();
 				break;
 			case "Wheel VII" :
-				working_wheel_i = wheel_vii;
+				working_wheel_i = wheel_vii.clone();
 				break;
 			case "Wheel VIII" :
-				working_wheel_i = wheel_viii;
+				working_wheel_i = wheel_viii.clone();
 				break;
 			default:
-				working_wheel_i = wheel_i;
+				working_wheel_i = wheel_i.clone();
 		}
 		switch(in_wheel2) {
 			case "Wheel I" :
-				working_wheel_ii = wheel_i;
+				working_wheel_ii = wheel_i.clone();
 				break;
 			case "Wheel II" :
-				working_wheel_ii = wheel_ii;
+				working_wheel_ii = wheel_ii.clone();
 				break;
 			case "Wheel III" :
-				working_wheel_ii = wheel_iii;
+				working_wheel_ii = wheel_iii.clone();
 				break;
 			case "Wheel IV" :
-				working_wheel_ii = wheel_iv;
+				working_wheel_ii = wheel_iv.clone();
 				break;
 			case "Wheel V" :
-				working_wheel_ii = wheel_v;
+				working_wheel_ii = wheel_v.clone();
 				break;
 			case "Wheel VI" :
-				working_wheel_ii = wheel_vi;
+				working_wheel_ii = wheel_vi.clone();
 				break;
 			case "Wheel VII" :
-				working_wheel_ii = wheel_vii;
+				working_wheel_ii = wheel_vii.clone();
 				break;
 			case "Wheel VIII" :
-				working_wheel_ii = wheel_viii;
+				working_wheel_ii = wheel_viii.clone();
 				break;
 			default:
-				working_wheel_ii = wheel_ii;
+				working_wheel_ii = wheel_ii.clone();
 		}
 		switch(in_wheel3) {
 			case "Wheel I" :
-				working_wheel_iii = wheel_i;
+				working_wheel_iii = wheel_i.clone();
 				break;
 			case "Wheel II" :
-				working_wheel_iii = wheel_ii;
+				working_wheel_iii = wheel_ii.clone();
 				break;
 			case "Wheel III" :
-				working_wheel_iii = wheel_iii;
+				working_wheel_iii = wheel_iii.clone();
 				break;
 			case "Wheel IV" :
-				working_wheel_iii = wheel_iv;
+				working_wheel_iii = wheel_iv.clone();
 				break;
 			case "Wheel V" :
-				working_wheel_iii = wheel_v;
+				working_wheel_iii = wheel_v.clone();
 				break;
 			case "Wheel VI" :
-				working_wheel_iii = wheel_vi;
+				working_wheel_iii = wheel_vi.clone();
 				break;
 			case "Wheel VII" :
-				working_wheel_iii = wheel_vii;
+				working_wheel_iii = wheel_vii.clone();
 				break;
 			case "Wheel VIII" :
-				working_wheel_iii = wheel_viii;
+				working_wheel_iii = wheel_viii.clone();
 				break;
 			default:
-				working_wheel_iii = wheel_iii;
+				working_wheel_iii = wheel_iii.clone();
 		}
 		switch(in_reflect) {
 			case "Reflector B" :
