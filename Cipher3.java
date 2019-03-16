@@ -173,8 +173,62 @@ public class Cipher extends JFrame {
 			default:
 				working_wheel_i = wheel_i;
 		}
-
-
+		switch(in_wheel2) {
+			case "Wheel I" :
+				working_wheel_ii = wheel_i;
+				break;
+			case "Wheel II" :
+				working_wheel_ii = wheel_ii;
+				break;
+			case "Wheel III" :
+				working_wheel_ii = wheel_iii;
+				break;
+			case "Wheel IV" :
+				working_wheel_ii = wheel_iv;
+				break;
+			case "Wheel V" :
+				working_wheel_ii = wheel_v;
+				break;
+			case "Wheel VI" :
+				working_wheel_ii = wheel_vi;
+				break;
+			case "Wheel VII" :
+				working_wheel_ii = wheel_vii;
+				break;
+			case "Wheel VIII" :
+				working_wheel_ii = wheel_viii;
+				break;
+			default:
+				working_wheel_ii = wheel_ii;
+		}
+		switch(in_wheel3) {
+			case "Wheel I" :
+				working_wheel_iii = wheel_i;
+				break;
+			case "Wheel II" :
+				working_wheel_iii = wheel_ii;
+				break;
+			case "Wheel III" :
+				working_wheel_iii = wheel_iii;
+				break;
+			case "Wheel IV" :
+				working_wheel_iii = wheel_iv;
+				break;
+			case "Wheel V" :
+				working_wheel_iii = wheel_v;
+				break;
+			case "Wheel VI" :
+				working_wheel_iii = wheel_vi;
+				break;
+			case "Wheel VII" :
+				working_wheel_iii = wheel_vii;
+				break;
+			case "Wheel VIII" :
+				working_wheel_iii = wheel_viii;
+				break;
+			default:
+				working_wheel_iii = wheel_iii;
+		}
 
 		//start loop here
 		//for each character in the input string
