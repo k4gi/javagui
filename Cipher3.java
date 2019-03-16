@@ -49,23 +49,23 @@ public class Cipher extends JFrame {
 		String[] wheel_i = { // Q-R
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 			"EKMFLGDQVZNTOWYHXUSPAIBRCJ",
-			"R"};
+			"R "};
 		String[] wheel_ii = { // E-F
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 			"AJDKSIRUXBLHWTMCQGZNPYFVOE",
-			"F"};
+			"F "};
 		String[] wheel_iii = { // V-W
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 			"BDFHJLCPRTXVZNYEIWGAKMUSQO",
-			"W"};
+			"W "};
 		String[] wheel_iv = { // J-K
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 			"ESOVPZJAYQUIRHXLNFTGKDCMWB",
-			"K",};
+			"K ",};
 		String[] wheel_v = { // Z-A
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 			"VZBRGITYUPSDNHLXAWMJQOFECK",
-			"A"};
+			"A "};
 		String[] wheel_vi = { // Z-A, M-N
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 			"JPGVOUMFYQBENHZRDKASXLICTW",
@@ -281,12 +281,12 @@ public class Cipher extends JFrame {
 			working_wheel_iii[1] = working_wheel_iii[1].substring(1, working_wheel_iii[1].length()) + working_wheel_iii[1].charAt(0);
 			//i really hope i can just edit the strings like this
 			//time for checking if i need to do it again
-			if( working_wheel_iii[0].charAt(0) == working_wheel_iii[2].charAt(0) ) { //need to add the second tick for wheels VI, VII, VIII
+			if( working_wheel_iii[0].charAt(0) == working_wheel_iii[2].charAt(0) || working_wheel_iii[0].charAt(0) == working_wheel_iii[2].charAt(1) ) { //need to add the second tick for wheels VI, VII, VIII
 				
 				working_wheel_ii[0] = working_wheel_ii[0].substring(1, working_wheel_ii[0].length()) + working_wheel_ii[0].charAt(0);
 				working_wheel_ii[1] = working_wheel_ii[1].substring(1, working_wheel_ii[1].length()) + working_wheel_ii[1].charAt(0);
 				
-				if( working_wheel_ii[0].charAt(0) == working_wheel_ii[2].charAt(0) ) { //need to add the second tick for wheels VI, VII, VIII
+				if( working_wheel_ii[0].charAt(0) == working_wheel_ii[2].charAt(0) || working_wheel_ii[0].charAt(0) == working_wheel_ii[2].charAt(1) ) { //need to add the second tick for wheels VI, VII, VIII
 					
 					working_wheel_i[0] = working_wheel_i[0].substring(1, working_wheel_i[0].length()) + working_wheel_i[0].charAt(0);
 					working_wheel_i[1] = working_wheel_i[1].substring(1, working_wheel_i[1].length()) + working_wheel_i[1].charAt(0);
