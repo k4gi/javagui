@@ -523,6 +523,14 @@ public class Cipher extends JFrame {
 			Which seems hella messy. This whole program is getting hella messy.
 			But its working! That's the important thing. I can change it later
 			to make it more efficient and less ridiculous later, yep.
+
+			Oh, I suppose the other way to go would be NOT restricting the UI
+			and just telling off the user if the plugboard they're about to use
+			is invalid. That'd be easier, but I'd really like a proper UI,
+			but this JComboBox nonsense clearly isn't the best way to go anyway.
+
+			Then again I'm not really sure how to go about checking the
+			plugboard after the fact. Hm. Tricky.
 		*/
 		String keyboard_copy = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //duplicate
 		Hashtable markers = new Hashtable();
@@ -553,14 +561,23 @@ public class Cipher extends JFrame {
 		press_this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String plugboard_made = "";
-				for(int i = 0; i < 26; i ++) {
+				for(int i = 0; i < 26; i ++) { //grabbing plugboard
 					if( String.valueOf( plugboard_menu[i].getSelectedItem() ) != "---" ) {
 						plugboard_made += String.valueOf( plugboard_menu[i].getSelectedItem() );
 					} else {
 						plugboard_made += Character.toString( keyboard_copy.charAt(i) );
 					}
 				}
-				out_field.setText( enigmaCipher( in_field.getText(), String.valueOf(select1.getSelectedItem()), slide1.getValue(), String.valueOf(select2.getSelectedItem()), slide2.getValue(), String.valueOf(select3.getSelectedItem()), slide3.getValue(), String.valueOf(selectr.getSelectedItem()), plugboard_made ) );
+				boolean verified = true;
+				for(int i = 0; i < 26; i ++) { //checking plugboard
+					if( !plugboard_made.contains( Character.toString(keyboard_copy.charAt(i)) ) ) {
+						verified = false;
+						break;
+					}
+				}
+				if(verified) {
+					out_field.setText( enigmaCipher( in_field.getText(), String.valueOf(select1.getSelectedItem()), slide1.getValue(), String.valueOf(select2.getSelectedItem()), slide2.getValue(), String.valueOf(select3.getSelectedItem()), slide3.getValue(), String.valueOf(selectr.getSelectedItem()), plugboard_made ) );
+				} else out_field.setText( "ERROR: Plugboard Load Letter" );
 			}
 		});
 
