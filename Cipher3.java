@@ -511,7 +511,19 @@ public class Cipher extends JFrame {
 			plugboard_menu[i] = new JComboBox();
 			plugboard_menu[i].addItem("---");
 		}
-		
+		/*
+			March 16, the last thing to do to make this program fully functional is
+			to restrict plugboard settings to how the plugboard actually works.
+			That is to say, one letter to another, connected both ways.
+			I think the machine also only had ten plugs but do I need to stick to that?
+			Anyway yeah I'm thinking adding a ... changeListener() ?
+			To each of the 26 plugboardmenu[] JComboBox 's
+			To automatically set the corresponding letter to match
+			And to remove both letters from the lists of all others
+			Which seems hella messy. This whole program is getting hella messy.
+			But its working! That's the important thing. I can change it later
+			to make it more efficient and less ridiculous later, yep.
+		*/
 		String keyboard_copy = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //duplicate
 		Hashtable markers = new Hashtable();
 		for(int i = 0; i < 26; i ++) {
