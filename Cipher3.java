@@ -146,6 +146,16 @@ public class Cipher extends JFrame {
 		String[] working_wheel_ii;
 		String[] working_wheel_iii;
 		String working_reflector;
+		/*
+			There's a bug right now to do with these wheel...
+			uh I had the word just now, declarations or something
+			but anyway if two or more working_wheels are the same wheel,
+			then when one gets turned, they all do.
+			I could just stop the same wheel being selected twice,
+			since thats not something you do with an enigma machine,
+			you only have one copy of each wheel.
+			But it'd be better to sort out this problem instead I think.
+		*/
 		switch(in_wheel1) {
 			case "Wheel I" :
 				working_wheel_i = wheel_i;
