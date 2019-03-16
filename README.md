@@ -1,6 +1,9 @@
 # javagui
 
 Edit 2019/01/02: i actually made something (it's a caesar cipher encoder) wow!
+Edit 2019/03/16: Cipher3.java is now an enigma machine that works! Except for one bug I've noticed
+
+**All this code's been written with Java 11. It definitely needs at least Java 10**
 
 can't get ncurses installed right now so let's try using java?
 
