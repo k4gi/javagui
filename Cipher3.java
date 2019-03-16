@@ -124,7 +124,7 @@ public class Cipher extends JFrame {
 		debug("Input: " + in);
 		debug("Slot 1: " + in_wheel1);
 		debug("Setting 1: " + in_start1);
-		debug("Slot 2" + in_wheel2);
+		debug("Slot 2: " + in_wheel2);
 		debug("Setting 2: " + in_start2);
 		debug("Slot 3: " + in_wheel3);
 		debug("Setting 3: " + in_start3);
