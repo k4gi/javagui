@@ -574,6 +574,14 @@ public class Cipher extends JFrame {
 						verified = false;
 						break;
 					}
+					if( plugboard_made.charAt(i) != keyboard_copy.charAt(i) ) {
+						//if( plugboard_made.charAt( keyboard_copy.indexOf( plugboard_made.charAt(i) ) ) != keyboard_copy.charAt( plugboard_made.indexOf( keyboard_copy.charAt(i) ) ) ) {
+						if( plugboard_made.charAt( keyboard_copy.indexOf( plugboard_made.charAt(i) ) ) != keyboard_copy.charAt(i) ) {
+							//i don't know if this is right my brain hurts
+							verified = false;
+							break;
+						}
+					}
 				}
 				if(verified) {
 					out_field.setText( enigmaCipher( in_field.getText(), String.valueOf(select1.getSelectedItem()), slide1.getValue(), String.valueOf(select2.getSelectedItem()), slide2.getValue(), String.valueOf(select3.getSelectedItem()), slide3.getValue(), String.valueOf(selectr.getSelectedItem()), plugboard_made ) );
