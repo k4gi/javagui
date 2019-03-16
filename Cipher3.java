@@ -30,12 +30,12 @@ public class Cipher extends JFrame {
 		if(debugging) System.out.println(in);
 	}
 	
-	private String enigmaCipher(String in, String in_wheel1, int in_start1, String in_wheel2, int in_start2, String in_wheel3, int in_start3) {
+	private String enigmaCipher(String in, String in_wheel1, int in_start1, String in_wheel2, int in_start2, String in_wheel3, int in_start3, String in_reflect, String plugboard) {
 		debug("==========STARTING enigmaCipher()==========");
 		in = in.toUpperCase();
 		String out = "";
 		String keyboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		String plugboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //default! not messing with this rn
+		//String plugboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //default! not messing with this rn
 		
 		/*
 			Gotta say a little bit about the stepping mechanism.
@@ -145,6 +145,7 @@ public class Cipher extends JFrame {
 		String[] working_wheel_i;
 		String[] working_wheel_ii;
 		String[] working_wheel_iii;
+		String working_reflector;
 		switch(in_wheel1) {
 			case "Wheel I" :
 				working_wheel_i = wheel_i;
@@ -229,6 +230,35 @@ public class Cipher extends JFrame {
 			default:
 				working_wheel_iii = wheel_iii;
 		}
+		switch(in_reflect) {
+			case "Reflector B" :
+				working_reflector = reflector_b;
+				break;
+			case "Reflector C" :
+				working_reflector = reflector_c;
+				break;
+			default:
+				working_reflector = reflector_b;
+		}
+
+		// now the initial rotor/wheel setting
+		for(int i = 1; i < in_start1; i ++) { //wheel i
+			working_wheel_i[0] = working_wheel_i[0].substring(1, working_wheel_i[0].length()) + working_wheel_i[0].charAt(0);
+			working_wheel_i[1] = working_wheel_i[1].substring(1, working_wheel_i[1].length()) + working_wheel_i[1].charAt(0);
+		}
+		for(int i = 1; i < in_start2; i ++) { //wheel ii
+			working_wheel_ii[0] = working_wheel_ii[0].substring(1, working_wheel_ii[0].length()) + working_wheel_ii[0].charAt(0);
+			working_wheel_ii[1] = working_wheel_ii[1].substring(1, working_wheel_ii[1].length()) + working_wheel_ii[1].charAt(0);
+		}
+		for(int i = 1; i < in_start3; i ++) { //wheel iii
+			working_wheel_iii[0] = working_wheel_iii[0].substring(1, working_wheel_iii[0].length()) + working_wheel_iii[0].charAt(0);
+			working_wheel_iii[1] = working_wheel_iii[1].substring(1, working_wheel_iii[1].length()) + working_wheel_iii[1].charAt(0);
+		}
+		debug( "Initial W-I:   " + working_wheel_i[0] + " / " + working_wheel_i[1] + " / " + working_wheel_i[2] );
+		debug( "Initial W-II:  " + working_wheel_ii[0] + " / " + working_wheel_ii[1] + " / " + working_wheel_ii[2] );
+		debug( "Initial W-III: " + working_wheel_iii[0] + " / " + working_wheel_iii[1] + " / " + working_wheel_iii[2] );
+		debug( "Reflector: " + working_reflector );
+		debug( "Plugboard: " + plugboard );
 
 		//start loop here
 		//for each character in the input string
@@ -266,9 +296,9 @@ public class Cipher extends JFrame {
 			//this is the end of turning the wheels now i need to encode
 			//just a thought how the ufck am i going to test this code
 			
-			debug( "W-I:   " + working_wheel_i[0] + " / " + working_wheel_i[1] );
-			debug( "W-II:  " + working_wheel_ii[0] + " / " + working_wheel_ii[1] );
-			debug( "W-III: " + working_wheel_iii[0] + " / " + working_wheel_iii[1] );
+			debug( "W-I:   " + working_wheel_i[0] + " / " + working_wheel_i[1] + " / " + working_wheel_i[2] );
+			debug( "W-II:  " + working_wheel_ii[0] + " / " + working_wheel_ii[1] + " / " + working_wheel_ii[2] );
+			debug( "W-III: " + working_wheel_iii[0] + " / " + working_wheel_iii[1] + " / " + working_wheel_iii[2] );
 			
 			//Step 3: plugboard.... ummm its first thing in the morning i'll come back later
 			//need to set up the main loop, so I can tell which character to be looking at, to go forward from here
@@ -388,7 +418,7 @@ public class Cipher extends JFrame {
 			
 			//Step 7: Reflector ... Let's just use reflector B for now
 			
-			code_letter = reflector_b.charAt( keyboard.indexOf(code_letter) );
+			code_letter = working_reflector.charAt( keyboard.indexOf(code_letter) );
 			
 			//code_letter = reflector_b.charAt( working_wheel_i[0].indexOf(code_letter) );
 			debug("Reflector... " + code_letter);
@@ -510,7 +540,15 @@ public class Cipher extends JFrame {
 		var press_this = new JButton("Press to encode text!");
 		press_this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				out_field.setText( enigmaCipher( in_field.getText(), String.valueOf(select1.getSelectedItem()), slide1.getValue(), String.valueOf(select2.getSelectedItem()), slide2.getValue(), String.valueOf(select3.getSelectedItem()), slide3.getValue() ) );
+				String plugboard_made = "";
+				for(int i = 0; i < 26; i ++) {
+					if( String.valueOf( plugboard_menu[i].getSelectedItem() ) != "---" ) {
+						plugboard_made += String.valueOf( plugboard_menu[i].getSelectedItem() );
+					} else {
+						plugboard_made += Character.toString( keyboard_copy.charAt(i) );
+					}
+				}
+				out_field.setText( enigmaCipher( in_field.getText(), String.valueOf(select1.getSelectedItem()), slide1.getValue(), String.valueOf(select2.getSelectedItem()), slide2.getValue(), String.valueOf(select3.getSelectedItem()), slide3.getValue(), String.valueOf(selectr.getSelectedItem()), plugboard_made ) );
 			}
 		});
 
